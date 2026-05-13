@@ -45,3 +45,16 @@ tasks.named<Test>("test") {
 tasks.test {
     enabled = false
 }
+tasks.register<Exec>("autogit") {
+  //workingDir '../tomcat/bin'
+
+  //on windows:
+  //commandLine 'cmd.exe', '/d', '/c', 'stop.bat'
+
+  //on linux
+  commandLine("bash", "-c", "git add . && git commit -m \"gradle auto commit on: $(date)\"")
+
+}
+tasks.build{
+    dependsOn("autogit")
+}
