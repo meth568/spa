@@ -42,19 +42,16 @@ tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+//disable tests
 tasks.test {
     enabled = false
 }
+// autogit
 tasks.register<Exec>("autogit") {
-  //workingDir '../tomcat/bin'
-
-  //on windows:
-  //commandLine 'cmd.exe', '/d', '/c', 'stop.bat'
-
-  //on linux
-  commandLine("bash", "-c", "git add . && git commit -m \"gradle auto commit on: $(date)\"")
+//linux only
+  commandLine("bash", "-c", "git add . && git commit -m \"Gradle auto commit on: $(date)\"")
 
 }
 tasks.build{
-    dependsOn("autogit")
+ dependsOn("autogit")
 }
