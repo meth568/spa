@@ -9,4 +9,5 @@ public String[] ld_q(ArrayList<String[]> quesions) {
     String[] q = quesions.get(rand.nextInt(quesions.size()));
     return q;
 }
+
 }

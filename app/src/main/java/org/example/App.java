@@ -27,7 +27,7 @@ public class App {
         ArrayList<String[]> quesions = new ArrayList<>();
         Scanner stdin = new Scanner(System.in);
         Random rand = new Random();
-        File f = new File("spa.csv");
+        File f = new File("/home/ryan/code/java/spa/spa.csv");
         // init and storing in mem
         try(Scanner scan = new Scanner(f);) {
             while (scan.hasNextLine()){
@@ -58,10 +58,18 @@ public class App {
       while (true) {  //loop
         String[] q = engine.ld_q(quesions);
         frontend.displayq(q[0]);
-        frontend.reada();
+        String answer = frontend.reada();
+        if(q[1].contains(answer)){
+            System.out.print("oc");
+        }
+        while(true){
+
+        }
+        
+      //  frontend.reada();
 
 
-    }
+   }
    
 }
 //       while (true) {  //loop
