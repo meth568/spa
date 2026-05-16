@@ -11,7 +11,7 @@ public class Gui implements Frontend{
     String answer;
     JButton submit;
     Engine engine = new Engine();
-    
+
     @Override
     public void start() {
         frame = new JFrame("spa");
@@ -45,6 +45,7 @@ public class Gui implements Frontend{
                 // here 
             }
         });       
+        
         return answer;
         
         
