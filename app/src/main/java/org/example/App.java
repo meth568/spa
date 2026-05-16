@@ -58,10 +58,8 @@ public class App {
       while (true) {  //loop
         String[] q = engine.ld_q(quesions);
         frontend.displayq(q[0]);
-        String answer = frontend.reada();
-        if(q[1].contains(answer)){
-            System.out.print("oc");
-        }
+        String answer = frontend.reada(q[1]);
+       
         while(true){
 
         }

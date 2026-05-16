@@ -9,5 +9,11 @@ public String[] ld_q(ArrayList<String[]> quesions) {
     String[] q = quesions.get(rand.nextInt(quesions.size()));
     return q;
 }
-
+public Boolean ck_q(String question, String answer){
+    if(question.contains(answer) == true){
+        return true;
+    }else{
+        return false;
+    }
+}
 }

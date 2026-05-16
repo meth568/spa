@@ -7,8 +7,11 @@ public class Gui implements Frontend{
     private JFrame frame;
     private JLabel label;
     private JTextField textField;
+
     String answer;
     JButton submit;
+    Engine engine = new Engine();
+    
     @Override
     public void start() {
         frame = new JFrame("spa");
@@ -33,10 +36,14 @@ public class Gui implements Frontend{
         
         
     }
-    public String reada(){
+    public String reada(String question){
         submit.addActionListener(e -> {
             answer = textField.getText();
-            
+            Boolean res = engine.ck_q(question,answer);
+            if(res == true){
+                label.setText("true");
+                // here 
+            }
         });       
         return answer;
         

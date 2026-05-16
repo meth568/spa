@@ -7,7 +7,7 @@ public class Cli implements Frontend{
     }
     
     public void displayq(String question){}
-    public String reada(){
+    public String reada(String question){
         return String.format("");
     }
 }
