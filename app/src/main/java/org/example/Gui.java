@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import com.formdev.flatlaf.FlatDarkLaf;
-
 import javax.swing.*;
 public class Gui implements Frontend{
     private JFrame frame;
@@ -77,16 +76,18 @@ public class Gui implements Frontend{
    
     Boolean alr_answ = false;
     public String reada(String answer){ 
+   
         submit.addActionListener(e -> {
             String result = textField.getText();
             Boolean res = engine.ck_q(result,answer);
-           
+            
             if(res == true){
                 warning.setText("true");
                 label.setText("");
                 if(alr_answ == false){
                 amtcrt++;
                 totalqs++;
+                alr_answ = false;
                 }
                 textField.setText("");
                 displayq(answer);
@@ -94,8 +95,9 @@ public class Gui implements Frontend{
                 warning.setText("Try Again");
                 if(alr_answ == false){
                 totalqs++;
+                alr_answ = true;
                 }else{
-                    alr_answ = true;
+                
                 }
                 
             }
