@@ -3,6 +3,7 @@ package org.example;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
+//import com.formdev.flatlaf.FlatDarkLaf;
 
 import javax.swing.*;
 public class Gui implements Frontend{
@@ -24,7 +25,7 @@ public class Gui implements Frontend{
     private void setup(){
         String window_title = "spa";
         int input_cols = 20;
-                
+       // FlatDarkLaf.setup();
         // setup window
         frame = new JFrame(window_title);
         frame.setSize(400,200);
