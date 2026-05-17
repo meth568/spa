@@ -1,6 +1,7 @@
 package org.example;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -8,15 +9,17 @@ public class Gui implements Frontend{
     private JFrame frame;
     private JLabel label;
     private JLabel score;
-    private JOptionPane warning;
+    private JLabel warning;
     private JTextField textField;
 
     String answer;
     JButton submit;
     Engine engine = new Engine();
-ArrayList<String[]> all_qs = new ArrayList<>();
-String[] rand_q;
-
+    ArrayList<String[]> all_qs = new ArrayList<>(); 
+    String[] rand_q;
+    //state
+    int totalqs = 0;
+    int amtcrt = 0;
     
     private void setup(){
         String window_title = "spa";
@@ -25,8 +28,9 @@ String[] rand_q;
         // setup window
         frame = new JFrame(window_title);
         frame.setSize(400,200);
-        frame.setLayout(new java.awt.FlowLayout());
+        frame.setLayout(new java.awt.FlowLayout(FlowLayout.LEFT, 20, 10 ));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       // frame.setResizable(false);
         frame.setVisible(true);
 
         label = new JLabel();
@@ -37,8 +41,9 @@ String[] rand_q;
         score.setVisible(true);
         frame.add(score);
 
-        warning = new JOptionPane("a");
+        warning = new JLabel();
         warning.setVisible(true);
+        frame.add(warning);
         //frame.add(warning);
 
         textField = new JTextField();
@@ -67,22 +72,32 @@ String[] rand_q;
     }
 
    
-    public String reada(String answer){
+   
+    Boolean alr_answ = false;
+    public String reada(String answer){ 
         submit.addActionListener(e -> {
             String result = textField.getText();
             Boolean res = engine.ck_q(result,answer);
+           
             if(res == true){
-                label.setText("true");
-               try {
-  Thread.sleep(200);
-} catch (InterruptedException e1) {
-  Thread.currentThread().interrupt();
-}
-displayq(answer);
+                warning.setText("true");
+                label.setText("");
+                if(alr_answ == false){
+                amtcrt++;
+                totalqs++;
+                }
+                textField.setText("");
+                displayq(answer);
             }if (res == false){
-                label.setText("wrong");
+                warning.setText("Try Again");
+                if(alr_answ == false){
+                totalqs++;
+                }else{
+                    alr_answ = true;
+                }
                 
             }
+            score.setText(String.format("%d/%d Correct",amtcrt, totalqs));
         });       
 
         return answer;
