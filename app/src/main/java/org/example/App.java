@@ -22,26 +22,15 @@ public class App {
         int target;
         int amtcrt = 0;
         int totalqs = 0; // total questions
-        int totalLines = 0;
+
         String data = null;
         ArrayList<String[]> quesions = new ArrayList<>();
         Scanner stdin = new Scanner(System.in);
         Random rand = new Random();
-        File f = new File("/home/ryan/code/java/spa/spa.csv");
-        // init and storing in mem
-        try(Scanner scan = new Scanner(f);) {
-            while (scan.hasNextLine()){
-                
-                quesions.add(scan.nextLine().split(","));
-                // todo add newline checking
-                totalLines++;
-            }
-        } catch (FileNotFoundException e) {
-           e.printStackTrace();
-        } 
 
 
-        //check q's
+
+      
         Engine engine = new Engine();
         boolean gui = true;
         Frontend frontend;
@@ -55,15 +44,6 @@ public class App {
         
         //pick q (b) => display q (f) => read input (f) => check q (b)  => report (f)
         frontend.start();
-      while (true) {  //loop
-        String[] q = engine.ld_q(quesions);
-        frontend.displayq(q[0]);
-        String answer = frontend.reada(q[1]);
-       
-        while(true){
-
-        }
-        
       //  frontend.reada();
 
 
@@ -95,6 +75,6 @@ public class App {
 // }
 
        
-    }
+    
     
 //}
