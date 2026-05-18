@@ -58,11 +58,11 @@ public class Gui implements Frontend{
         //  load csv into mem
         all_qs= engine.cache_q("/home/ryan/code/java/spa/spa.csv");
     }
-     private void displayq(String question){
+     private String displayq(String question){
       
        rand_q = engine.get_q(all_qs); //rand_q[0] == question rand_q[1] == answer
        label.setText(String.format("question is:%s", rand_q[0]));
-        
+        return rand_q[1];
         
     }
     @Override
@@ -90,7 +90,8 @@ public class Gui implements Frontend{
                 alr_answ = false;
                 }
                 textField.setText("");
-                displayq(answer);
+                //displayq(answer);
+                reada(answer);
             }if (res == false){
                 warning.setText("Try Again");
                 if(alr_answ == false){
