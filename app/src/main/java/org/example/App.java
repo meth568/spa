@@ -10,6 +10,7 @@ import org.example.Engine;
 public class App {
 
     public static void main(String[] args) {
+        System.out.printf("Version %d\n", Info.version);
         // JFrame frame = new JFrame();
         // frame.setSize(400,200);
         // JLabel label = new JLabel();
