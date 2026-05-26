@@ -1,0 +1,19 @@
+Name: jar
+on: 
+    push:
+        branches:
+            - 'release'
+    workflow_dispatch
+jobs:
+    jar:
+        runs-on: ubuntu-latest
+  
+        steps:
+    - name: switch to relaese
+    uses: actions/checkout@v6.0.2
+    
+    - name: Setup Java JDK
+     uses: actions/setup-java@v5.2.0
+     with:
+        distribution: temurin
+        java-version: 21
