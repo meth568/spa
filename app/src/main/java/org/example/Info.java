@@ -1,5 +1,6 @@
 package org.example;
 
 public class Info {
-    public static int version = 1;
+    public static String version = "1";
+    public static boolean debug = true;
 }

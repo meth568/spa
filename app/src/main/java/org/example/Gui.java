@@ -11,11 +11,15 @@ public class Gui implements Frontend{
     private JFrame frame;
     private JLabel label;
     private JLabel score;
+    JButton submit;
+    private JButton debugButton;
     private JOptionPane warning;
     private JTextField textField;
+    private JFileChooser filepick;
+    
 
     String answer;
-    JButton submit;
+    
     Engine engine = new Engine();
     ArrayList<String[]> all_qs = new ArrayList<>(); 
     String[] rand_q_a;
@@ -26,7 +30,7 @@ public class Gui implements Frontend{
     int amtcrt = 0;
     
     private void setup(){
-        String window_title = "spa";
+        String window_title = "Carded";
         int input_cols = 20;
         //theming
         FlatDarkLaf.setup();
@@ -35,9 +39,14 @@ public class Gui implements Frontend{
         frame.setSize(400,200);
         frame.setLayout(new java.awt.FlowLayout(FlowLayout.LEFT, 20, 10 ));
        
+        ImageIcon icon = new ImageIcon("/home/ryan/Documents/pics/carded.png");
+        frame.setIconImage(icon.getImage());
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        // frame.setResizable(false);
         frame.setVisible(true);
+        
+
 
         // label for questions
         label = new JLabel();
@@ -60,9 +69,28 @@ public class Gui implements Frontend{
         frame.add(submit);
         //bind enter to submit for fastness
         frame.getRootPane().setDefaultButton(submit);
-        //  load csv into mem
-        all_qs= engine.cache_q("/home/ryan/code/java/spa/spa.csv");
 
+        //debug/ print varibles 
+        debugButton = new JButton("debug");
+        debugButton.addActionListener(null);
+        if (Info.debug == true) {
+            frame.add(debugButton);
+        }
+
+
+        // loading file and picking
+        //
+        if(Info.debug == false){
+            
+        
+        filepick = new JFileChooser();
+        filepick.showOpenDialog(null);
+        all_qs= engine.cache_q(filepick.getSelectedFile().getAbsolutePath());
+        
+       
+        }else{
+        all_qs= engine.cache_q("/home/ryan/code/java/spa/spa.csv");
+        }
         //submit button
         // NOTE: listener stays on forever so the question just needs to be regen for new q's
         // NOTE: code in the action listener runs every time a button a pressed.
