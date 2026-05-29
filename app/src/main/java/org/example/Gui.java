@@ -105,20 +105,15 @@ public class Gui implements Frontend{
             Boolean res = engine.ck_q(result, rand_q_a[1]);
             Boolean firstime = true;
              submit.addActionListener(e -> {
-                if(!res){
-                    if(firstime){
-                        totalqs++;
-                    }
-                
-                }else if (res) {
-                    if(firstime){
-                        amtcrt++;
-                        totalqs++;
-                    }
-                    if (!firstime) {
-                        
-                    }
+               if(firstime){
+                totalqs++;
+                if (res){
+                    amtcrt++;
+                    //
+                    // TODO FIX CORRECT POINTS NOT BEING AWARDED
+                    //
                 }
+               }
                 reada();
                 textField.setText("");
 
@@ -175,6 +170,10 @@ public class Gui implements Frontend{
        
         reada();
     }
+
+    /**
+     * Read_a takes a random question and answer and displays it
+     */
     public void reada(){
         are_points_earnable = true;
         rand_q_a = engine.get_q(all_qs); //rand_q[0] == question rand_q[1] == answer
