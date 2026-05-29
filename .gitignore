@@ -8,3 +8,11 @@ build
 .kotlin
 
 app/build
+
+##############################
+## Gradle
+##############################
+app/bin/
+app/build/
+.gradle
+desktop.desktop

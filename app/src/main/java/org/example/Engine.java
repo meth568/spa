@@ -14,6 +14,7 @@ public class Engine {
  */
 
 public ArrayList<String[]> cache_q(String filename){
+    System.out.println(String.format("Using file: %s",filename));
     int totalLines = 0;    
     ArrayList<String[]> questions = new ArrayList<>();
     File f = new File(filename);

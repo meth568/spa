@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.*;
@@ -39,7 +40,7 @@ public class Gui implements Frontend{
         frame.setSize(400,200);
         frame.setLayout(new java.awt.FlowLayout(FlowLayout.LEFT, 20, 10 ));
        
-        ImageIcon icon = new ImageIcon("/home/ryan/Documents/pics/carded.png");
+        ImageIcon icon = new ImageIcon("/home/ryan/Documents/pics/carded6m.png");
         frame.setIconImage(icon.getImage());
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,6 +74,9 @@ public class Gui implements Frontend{
         //debug/ print varibles 
         debugButton = new JButton("debug");
         debugButton.addActionListener(null);
+        debugButton.addActionListener(e -> {
+            System.out.print(String.format("totalq : %d amtcrt %d are_point_earnable %b \n", totalqs,amtcrt,are_points_earnable));
+        });
         if (Info.debug == true) {
             frame.add(debugButton);
         }
@@ -89,36 +93,80 @@ public class Gui implements Frontend{
         
        
         }else{
+           System.err.print("Using debug file");
         all_qs= engine.cache_q("/home/ryan/code/java/spa/spa.csv");
+
         }
         //submit button
         // NOTE: listener stays on forever so the question just needs to be regen for new q's
         // NOTE: code in the action listener runs every time a button a pressed.
-        submit.addActionListener(e -> {
+            reada();
             String result = textField.getText();
             Boolean res = engine.ck_q(result, rand_q_a[1]);
-            if(res == true){
-               if(are_points_earnable == true){
-                totalqs++;
-                amtcrt++;
+            Boolean firstime = true;
+             submit.addActionListener(e -> {
+                if(!res){
+                    if(firstime){
+                        totalqs++;
+                    }
                 
-               }else{
-                are_points_earnable = true;
-                totalqs++;
-               }
-               textField.setText("");
-               reada();
-                
-            }else{
-                // If wrong
-                JOptionPane.showMessageDialog(frame,"Wrong");
-                are_points_earnable = false;
+                }else if (res) {
+                    if(firstime){
+                        amtcrt++;
+                        totalqs++;
+                    }
+                    if (!firstime) {
+                        
+                    }
+                }
+                reada();
                 textField.setText("");
 
-            }
+             });
+            // if(res == false && are_points_earnable == true){
+            //     // if it's false on the first time
+            //     are_points_earnable = false;
+            //     totalqs++;
+            //     JOptionPane.showMessageDialog(frame,"Wrong");
+            // }if(res == false && are_points_earnable == false){
+            //     //if its false after many time
+            // }
+            // if(res == true && are_points_earnable == false){
+            //     // if its true after a 2nd try
+            //     reada();
+            // }
+         // if(are_points_earnable == true && res == true){
+            //     //if it's correct after 1 try
+            //     amtcrt++;
+            //     totalqs++;
+            //     reada();
+            // }
+            // textField.setText("");
 
 
-        });
+            // if(res == true){
+
+            //    if(are_points_earnable == true){
+            //     totalqs++;
+            //     amtcrt++;
+                
+            //    }else{
+            //     are_points_earnable = true;
+            //     totalqs++;
+            //    }
+            //    textField.setText("");
+            //    reada();
+                
+            // }else{
+            //     // If wrong
+            //     
+            //     are_points_earnable = false;
+            //     textField.setText("");
+
+            // }
+
+
+        
     }
 
     @Override
@@ -128,6 +176,7 @@ public class Gui implements Frontend{
         reada();
     }
     public void reada(){
+        are_points_earnable = true;
         rand_q_a = engine.get_q(all_qs); //rand_q[0] == question rand_q[1] == answer
         label.setText(String.format("question is:%s", rand_q_a[0]));
       // DEBUGING  System.out.printf("amt crt %d total q %d \n", amtcrt, totalqs);
