@@ -1,4 +1,4 @@
-package org.example;
+package com.github.based187.carded;
 
 import java.io.File;
 import java.io.FileNotFoundException;

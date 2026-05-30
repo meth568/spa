@@ -1,11 +1,13 @@
-package org.example;
+package com.github.based187.carded;
 
 import javax.swing.*;
+
+import com.github.based187.carded.Engine;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.io.*;
-import org.example.Engine;
 // Engine e = new Engine();
 public class App {
 

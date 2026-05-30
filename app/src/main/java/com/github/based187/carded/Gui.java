@@ -1,13 +1,18 @@
-package org.example;
+package com.github.based187.carded;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionListener;
+import java.awt.Font;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 import com.formdev.flatlaf.FlatDarkLaf;
-import javax.swing.*;
 public class Gui implements Frontend{
     private JFrame frame;
     private JLabel label;
@@ -25,7 +30,7 @@ public class Gui implements Frontend{
     ArrayList<String[]> all_qs = new ArrayList<>(); 
     String[] rand_q_a;
     Boolean are_points_earnable = true; 
-
+    Boolean firstime = true;
     //state
     int totalqs = 0;
     int amtcrt = 0;
@@ -40,7 +45,7 @@ public class Gui implements Frontend{
         frame.setSize(400,200);
         frame.setLayout(new java.awt.FlowLayout(FlowLayout.LEFT, 20, 10 ));
        
-        ImageIcon icon = new ImageIcon("/home/ryan/Documents/pics/carded6m.png");
+        ImageIcon icon = new ImageIcon(getClass().getResource("/carded.png"));
         frame.setIconImage(icon.getImage());
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,6 +57,7 @@ public class Gui implements Frontend{
         // label for questions
         label = new JLabel();
         label.setVisible(true);
+        label.setFont(label.getFont().deriveFont(Font.BOLD));
         frame.add(label);
 
         score = new JLabel();
@@ -75,7 +81,7 @@ public class Gui implements Frontend{
         debugButton = new JButton("debug");
         debugButton.addActionListener(null);
         debugButton.addActionListener(e -> {
-            System.out.print(String.format("totalq : %d amtcrt %d are_point_earnable %b \n", totalqs,amtcrt,are_points_earnable));
+            System.out.print(String.format("totalq : %d amtcrt %d firsttime %b \n", totalqs,amtcrt,firstime));
         });
         if (Info.debug == true) {
             frame.add(debugButton);
@@ -101,21 +107,58 @@ public class Gui implements Frontend{
         // NOTE: listener stays on forever so the question just needs to be regen for new q's
         // NOTE: code in the action listener runs every time a button a pressed.
             reada();
-            String result = textField.getText();
-            Boolean res = engine.ck_q(result, rand_q_a[1]);
-            Boolean firstime = true;
+            
+            
              submit.addActionListener(e -> {
-               if(firstime){
+ 
+                // if(res){
+                //     if(firstime){
+                //         //correct + firsttime
+                //          totalqs++;
+                //          amtcrt++;
+                //     }else{
+                //         //correct + anytime
+                //         totalqs++;
+                //     }
+                //     //new question
+                //     firstime = true;
+                //     reada();
+                // }else{
+                //     if(firstime){
+                //         //wrong + firsttime
+                //     totalqs++;
+                //     }else{
+                //         //wrong + anytime
+                //         firstime = false;
+                //     }
+                    
+                //     
+                // }
+                
+                // textField.setText("");
+                String result = textField.getText();
+                Boolean res = engine.ck_q(result, rand_q_a[1]);
+                if(res == true){
+
+               if(are_points_earnable == true){
                 totalqs++;
-                if (res){
-                    amtcrt++;
-                    //
-                    // TODO FIX CORRECT POINTS NOT BEING AWARDED
-                    //
-                }
+                amtcrt++;
+                
+               }else{
+                are_points_earnable = true;
+                totalqs++;
                }
-                reada();
+               textField.setText("");
+               reada();
+                
+            }else{
+                // If wrong
+                
+                are_points_earnable = false;
+                JOptionPane.showMessageDialog(frame,"Wrong");
                 textField.setText("");
+
+            }
 
              });
             // if(res == false && are_points_earnable == true){
@@ -139,26 +182,7 @@ public class Gui implements Frontend{
             // textField.setText("");
 
 
-            // if(res == true){
 
-            //    if(are_points_earnable == true){
-            //     totalqs++;
-            //     amtcrt++;
-                
-            //    }else{
-            //     are_points_earnable = true;
-            //     totalqs++;
-            //    }
-            //    textField.setText("");
-            //    reada();
-                
-            // }else{
-            //     // If wrong
-            //     
-            //     are_points_earnable = false;
-            //     textField.setText("");
-
-            // }
 
 
         
@@ -177,7 +201,8 @@ public class Gui implements Frontend{
     public void reada(){
         are_points_earnable = true;
         rand_q_a = engine.get_q(all_qs); //rand_q[0] == question rand_q[1] == answer
-        label.setText(String.format("question is:%s", rand_q_a[0]));
+        //label.setText(String.format("question is:%s", rand_q_a[0]));
+        label.setText(String.format("%s", rand_q_a[0]));
       // DEBUGING  System.out.printf("amt crt %d total q %d \n", amtcrt, totalqs);
         score.setText(String.format("%d/%d Correct", amtcrt, totalqs));
     }

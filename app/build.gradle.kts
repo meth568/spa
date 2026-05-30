@@ -38,7 +38,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "org.example.App"
+    mainClass = "com.github.based187.carded"
 }
 
 tasks.named<Test>("test") {
@@ -58,3 +58,5 @@ tasks.register<Exec>("autogit") {
 tasks.build{
  dependsOn("autogit")
 }
+
+version = "1.0.0"

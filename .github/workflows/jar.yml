@@ -1,19 +1,34 @@
-Name: jar
-on: 
-    push:
-        branches:
-            - 'release'
-    workflow_dispatch
+name: jar
+on:
+    # push:
+    #     branches:
+    #       - 'release'
+    
+      push:
+        tags:
+          - 'v*' 
+          #tags that start with v eg v1.1   
+
+
 jobs:
     jar:
         runs-on: ubuntu-latest
-  
+
         steps:
-    - name: switch to relaese
-    uses: actions/checkout@v6.0.2
-    
-    - name: Setup Java JDK
-     uses: actions/setup-java@v5.2.0
-     with:
-        distribution: temurin
-        java-version: 21
+          - name: switch to relaese
+            uses: actions/checkout@v6.0.2
+
+          - name: Setup Java JDK
+            uses: actions/setup-java@v5.2.0
+            with:
+                distribution: temurin
+                java-version: 21
+                cache: 'gradle'
+          - name: build
+            run: "./gradlew shadowJar"     
+          - name: ls 
+            run: "ls -a app/build/libs"
+          - uses: ncipollo/release-action@v1
+            with:
+              artifacts: "app/build/libs/app*"
+              bodyFile: "changelog/${{ github.ref_name }}"

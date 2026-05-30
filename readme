@@ -6,3 +6,5 @@ spa.csv is a test file that can be used to demonstrate how csv like files can be
 I am learning java and swing so if you know better please give suggestions to fix it.
 ### Docs?
 read the docs if you feel sad.
+### New releases?
+- just tag a release staring with 'v' and the CI should handle it
