@@ -4,7 +4,7 @@
  * This generated file contains a sample Java application project to get you started.
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/9.5.0/userguide/building_java_projects.html in the Gradle documentation.
  */
-
+import java.time.LocalDate
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -38,7 +38,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "com.github.based187.carded"
+    mainClass = "com.github.based187.App"
 }
 
 tasks.named<Test>("test") {
@@ -59,4 +59,9 @@ tasks.build{
  dependsOn("autogit")
 }
 
-version = "1.0.0"
+tasks.shadowJar {
+    //eg 2026-05-29
+       val date = LocalDate.now()
+    archiveFileName.set("carded-$date.jar")
+}
+//version = "1.0.0"

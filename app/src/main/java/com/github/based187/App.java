@@ -1,8 +1,8 @@
-package com.github.based187.carded;
+package com.github.based187;
 
 import javax.swing.*;
 
-import com.github.based187.carded.Engine;
+import com.github.based187.Engine;
 
 import java.util.ArrayList;
 import java.util.Random;

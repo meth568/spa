@@ -1,4 +1,4 @@
-package com.github.based187.carded;
+package com.github.based187;
 
 public class Cli implements Frontend{
     @Override
